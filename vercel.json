@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "py build"
+  "buildCommand": "py build",
   "builds": [
       {
           "src": "*.py",
