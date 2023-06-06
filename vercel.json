@@ -1,5 +1,7 @@
 {
   "version": 1,
+  "buildCommand": "py build",
+  "framework": "FastAPI",
   "builds": [
       {
           "src": "*.py"
