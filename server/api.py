@@ -73,6 +73,6 @@ async def engine(resume_list_input: str):
             error_list += [f"Unable to delete the file {file_name} because {str(ex)}"]
 
     return {
-        "cvData": json_list,
-        "errorList": error_list
+        "ResumeData": json_list,
+        "ErrorList": error_list
     }
