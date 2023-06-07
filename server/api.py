@@ -16,7 +16,6 @@ async def engine(resume_list_input: str):
     resume_list = json.loads(resume_list_input)
 
     for resume in resume_list:
-
         try:
             if resume["fileName"] == "":
                 error_list += [f"Resume of index {resume_list.index(resume)} has an empty file name"]
@@ -50,17 +49,28 @@ async def engine(resume_list_input: str):
                            f" and {str(ex)}"]
             continue
 
+        file = open(f"{file_name}{file_extension}", 'wb')
         try:
-            file = open(f"{file_name}{file_extension}", 'wb')
             file.write(base64.b64decode(encoded_file))
             file.close()
+        except Exception as ex:
+            file.close()
+            os.remove(f"{file_name}{file_extension}")
+            error_list += [f"Unable to convert the file {file_name} back to its original format because {str(ex)}"]
+            continue
 
+        try:
             cv_data = ResumeParser(f"{file_name}{file_extension}").get_extracted_data()
             json_list += [cv_data]
-            os.remove(f"{file_name}{file_extension}")
         except Exception as ex:
+            os.remove(f"{file_name}{file_extension}")
             error_list += [f"Unable to parse the resume with the index {resume_list.index(resume)}"
                            f" because {str(ex)}"]
+
+        try:
+            os.remove(f"{file_name}{file_extension}")
+        except Exception as ex:
+            error_list += [f"Unable to delete the file {file_name} because {str(ex)}"]
 
     return {
         "cvData": json_list,
