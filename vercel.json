@@ -2,15 +2,9 @@
   "version": 2,
   "buildCommand": "py build",
   "builds": [
-      {
-          "src": "*.py",
-          "use": "@vercel/python"
-      }
+    {"src": "/server/api.py", "use": "@now/python"}
   ],
   "routes": [
-      {
-          "src": "(.*)",
-          "dest": "main.py"
-      }
+    {"src": "/(.*)", "dest": "server/api.py"}
   ]
 }
