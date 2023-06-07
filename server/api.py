@@ -7,7 +7,7 @@ app = FastAPI()
 app.include_router(resume_parser_route, prefix="/parse")
 
 
-@app.get("/", tags=["Root"])
+@app.post("/", tags=["Root"])
 async def engine(resume_list: list[dict]):
     json_list = []
     error_list = []
