@@ -1,10 +1,10 @@
 import os
 from fastapi import FastAPI
 from pyresparser import ResumeParser
-from server.routes import router as ResumeParserRoute
+from server.routes import router as resume_parser_route
 
 app = FastAPI()
-app.include_router(ResumeParserRoute, prefix="/parse")
+app.include_router(resume_parser_route, prefix="/parse")
 
 
 @app.get("/", tags=["Root"])
